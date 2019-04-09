@@ -37,8 +37,14 @@ entity galaxian is
 		I_UP       : in  std_logic;   --  active high
 		I_DOWN     : in  std_logic;   --  active high
 		I_FIRE     : in  std_logic;   --  active high
+		I_LEFT_2   : in  std_logic;   --  active high
+		I_RIGHT_2  : in  std_logic;   --  active high
+		I_UP_2     : in  std_logic;   --  active high
+		I_DOWN_2   : in  std_logic;   --  active high
+		I_FIRE_2   : in  std_logic;   --  active high
 		I_1P_START : in  std_logic;   --  active high
 		I_2P_START : in  std_logic;   --  active high
+		I_DIP      : in  std_logic_vector(7 downto 0);
 
 		dn_addr    : in  std_logic_vector(15 downto 0);
 		dn_data    : in  std_logic_vector(7 downto 0);
@@ -240,7 +246,12 @@ begin
 		I_UP          => I_UP,
 		I_DOWN        => I_DOWN,
 		I_FIRE        => I_FIRE,
-
+		I_LEFT_2        => I_LEFT_2,
+		I_RIGHT_2       => I_RIGHT_2,
+		I_UP_2          => I_UP_2,
+		I_DOWN_2        => I_DOWN_2,
+		I_FIRE_2        => I_FIRE_2,
+		I_DIP         => I_DIP,
 		I_SW0_OE      => W_SW0_OE,
 		I_SW1_OE      => W_SW1_OE,
 		I_DIP_OE      => W_DIP_OE,

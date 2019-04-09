@@ -43,9 +43,14 @@ port (
 	I_UP       : in  std_logic;   --  active high
 	I_DOWN     : in  std_logic;
 	I_FIRE     : in  std_logic;
+	I_LEFT_2   : in  std_logic;   --  active high
+	I_RIGHT_2  : in  std_logic;   --  active high
+	I_UP_2     : in  std_logic;   --  active high
+	I_DOWN_2   : in  std_logic;
+	I_FIRE_2   : in  std_logic;
 	I_1P_START : in  std_logic;   --  active high
 	I_2P_START : in  std_logic;   --  active high
-
+   I_DIP      : in  std_logic_vector(7 downto 0);
 	I_SW0_OE   : in  std_logic;
 	I_SW1_OE   : in  std_logic;
 	I_DIP_OE   : in  std_logic;
@@ -66,9 +71,9 @@ architecture RTL of MC_INPORT is
 
 begin
 
-	W_SW0_DO <= x"00" when I_SW0_OE = '0' else '0' & I_DOWN & I_UP &  I_FIRE &  I_RIGHT & I_LEFT & I_COIN2 & I_COIN1;
-	W_SW1_DO <= x"00" when I_SW1_OE = '0' else "000000" & I_2P_START & I_1P_START;
-	W_DIP_DO <= x"00" when I_DIP_OE = '0' else "00000011";
+	W_SW0_DO <= x"00" when I_SW0_OE = '0' else I_DOWN_2 & I_DOWN & I_UP &  I_FIRE &  I_RIGHT & I_LEFT & I_COIN2 & I_COIN1;
+	W_SW1_DO <= x"00" when I_SW1_OE = '0' else "00" &I_UP_2 &  I_FIRE_2 & I_RIGHT_2 & I_LEFT_2 & I_2P_START & I_1P_START;
+	W_DIP_DO <= x"00" when I_DIP_OE = '0' else I_DIP;--"00000011";
 	O_D      <= W_SW0_DO or W_SW1_DO or W_DIP_DO ;
 
 end RTL;
