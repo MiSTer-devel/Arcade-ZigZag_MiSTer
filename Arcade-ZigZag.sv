@@ -98,7 +98,7 @@ localparam CONF_STR = {
 	"OC,Cabinet,Upright,Cocktail;",
 	"-;",
 	"R0,Reset;",
-	"J,Fire,Start 1P,Start 2P;",
+	"J1,Fire,Start 1P,Start 2P;",
 	"V,v",`BUILD_DATE
 };
 
