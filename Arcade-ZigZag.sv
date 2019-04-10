@@ -264,7 +264,7 @@ galaxian galaxian
 (
 	.W_CLK_12M(clk_sys),
 	.W_CLK_6M(clk_6),
-	.I_RESET(RESET | status[0] | buttons[1]),
+	.I_RESET(RESET | status[0] | buttons[1]|ioctl_download),
 
 	.I_COIN1(m_coin|btn_coin_1|btn_coin_2),
 	.I_COIN2(0),
