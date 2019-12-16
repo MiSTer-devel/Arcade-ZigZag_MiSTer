@@ -78,7 +78,8 @@ architecture RTL of galaxian is
 	signal W_ROM_SWP          : std_logic := '0';
 	-------- H and V COUNTER -------------------------
 	signal W_C_BLn            : std_logic := '0';
-	signal W_C_BLnX           : std_logic := '0';
+	signal W_H_BLn            : std_logic := '0';
+	signal W_H_BLnX           : std_logic := '0';
 	signal W_H_BL             : std_logic := '0';
 	signal W_H_SYNC_int       : std_logic := '0';
 	signal W_V_BLn            : std_logic := '0';
@@ -155,6 +156,7 @@ begin
 		I_V_FLIP      => W_V_FLIP,
 		I_V_BLn       => W_V_BLn,
 		I_C_BLn       => W_C_BLn,
+		I_H_BLn       => W_H_BLn,
 		I_A           => W_A(9 downto 0),
 		I_BD          => W_BDI,
 		I_OBJ_RAM_RQ  => W_OBJ_RAM_RQ,
@@ -162,7 +164,7 @@ begin
 		I_OBJ_RAM_WR  => W_OBJ_RAM_WR,
 		I_VID_RAM_RD  => W_VID_RAM_RD,
 		I_VID_RAM_WR  => W_VID_RAM_WR,
-		O_C_BLnX      => W_C_BLnX,
+		O_H_BLnX      => W_H_BLnX,
 		O_BD          => W_VID_DO,
 		O_VID         => W_VID,
 		O_COL         => W_COL
@@ -265,6 +267,7 @@ begin
 		O_H_CNT       => W_H_CNT,
 		O_H_SYNC      => W_H_SYNC_int,
 		O_H_BL        => W_H_BL,
+		O_H_BLn       => W_H_BLn,
 		O_V_CNT       => W_V_CNT,
 		O_V_SYNC      => W_V_SYNC_int,
 		O_V_BL2n      => W_V_BL2n,
@@ -303,7 +306,7 @@ begin
 	process(W_CLK_6M)
 	begin
 		if rising_edge(W_CLK_6M) then
-			HBLANK   <= not W_C_BLnX;
+			HBLANK   <= not W_H_BLnX;
 			VBLANK   <= not W_V_BL2n;
 		end if;
 	end process;

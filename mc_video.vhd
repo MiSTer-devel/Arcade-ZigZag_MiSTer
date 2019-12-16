@@ -43,6 +43,7 @@ entity MC_VIDEO is
 		I_V_FLIP      : in  std_logic;
 		I_V_BLn       : in  std_logic;
 		I_C_BLn       : in  std_logic;
+		I_H_BLn       : in  std_logic;
 
 		I_A           : in  std_logic_vector(9 downto 0);
 		I_BD          : in  std_logic_vector(7 downto 0);
@@ -53,6 +54,7 @@ entity MC_VIDEO is
 		I_VID_RAM_WR  : in  std_logic;
 
 		O_C_BLnX      : out std_logic;
+		O_H_BLnX      : out std_logic;
 		O_8HF         : out std_logic;
 		O_256HnX      : out std_logic;
 		O_1VF         : out std_logic;
@@ -179,9 +181,9 @@ begin
 
 	lram : entity work.MC_LRAM
 	port map(
-		I_CLK  => I_CLK_12M,
+		I_WCLK => I_CLK_6M,
+		I_RCLK => I_CLK_12M,
 		I_ADDR => W_LRAM_A,
-		I_WE   => not I_CLK_6M,
 		I_D    => W_LRAM_DI,
 		O_D    => W_LRAM_DO
 	);
@@ -364,8 +366,7 @@ begin
 		if rising_edge(I_CLK_6M) then
 			if (W_LDn = '0') then
 				W_6P_Q <= W_H_FLIP2 & W_H_FLIP1 & I_C_BLn & (not I_H_CNT(8)) & W_6K_Q(2 downto 0);
-			else
-				W_6P_Q <= W_6P_Q;
+				O_H_BLnX <= I_H_BLn;
 			end if;
 		end if;
 	end process;
@@ -575,9 +576,9 @@ begin
 
 	lram : entity work.MC_LRAM
 	port map(
-		I_CLK  => I_CLK_12M,
+		I_WCLK => I_CLK_6M,
+		I_RCLK => I_CLK_12M,
 		I_ADDR => W_LRAM_A,
-		I_WE   => not I_CLK_6M,
 		I_D    => W_LRAM_DI,
 		O_D    => W_LRAM_DO
 	);

@@ -75,13 +75,14 @@ module emu
 	output [15:0] AUDIO_L,
 	output [15:0] AUDIO_R,
 	output        AUDIO_S,   // 1 - signed audio samples, 0 - unsigned
+
 	// Open-drain User port.
-        // 0 - D+/RX
-        // 1 - D-/TX
-        // 2..6 - USR2..USR6
-        // Set USER_OUT to 1 to read from USER_IN.
-        input   [6:0] USER_IN,
-        output  [6:0] USER_OUT
+	// 0 - D+/RX
+	// 1 - D-/TX
+	// 2..6 - USR2..USR6
+	// Set USER_OUT to 1 to read from USER_IN.
+	input   [6:0] USER_IN,
+	output  [6:0] USER_OUT
 );
 
 assign VGA_F1    = 0;
@@ -192,7 +193,7 @@ always @(posedge clk_sys) begin
 			'h023: btn_left_2      <= pressed; // D
 			'h034: btn_right_2     <= pressed; // G
 			'h01C: btn_fire_2      <= pressed; // A
-			'h02C: btn_test           <= pressed; // T
+			'h02C: btn_test        <= pressed; // T
 		endcase
 	end
 end
@@ -241,29 +242,28 @@ wire [2:0] b;
 
 reg ce_pix;
 always @(posedge clk_hdmi) begin
-        reg old_clk;
+	reg [1:0] div;
 
-        old_clk <= clk_6;
-        ce_pix <= old_clk & ~clk_6;
+	div <= div + 1'd1;
+	ce_pix <= !div;
 end
 
-arcade_rotate_fx #(256,223,9,0) arcade_video
+arcade_rotate_fx #(256,224,9,0) arcade_video
 (
-        .*,
+	.*,
 
-        .clk_video(clk_hdmi),
-        //.ce_pix(ce_vid),
+	.clk_video(clk_hdmi),
+	//.ce_pix(ce_vid),
 
-        .RGB_in({r,g,b}),
-        .HBlank(hblank),
-        .VBlank(vblank),
-        .HSync(hs),
-        .VSync(vs),
+	.RGB_in({r,g,b}),
+	.HBlank(hblank),
+	.VBlank(vblank),
+	.HSync(hs),
+	.VSync(vs),
 
-        .fx(status[5:3]),
-        .no_rotate(status[2])
+	.fx(status[5:3]),
+	.no_rotate(status[2])
 );
-//screen_rotate #(256,224,9) screen_rotate
 
 
 wire [9:0] audio;
