@@ -106,7 +106,7 @@ localparam CONF_STR = {
 	"OC,Cabinet,Upright,Cocktail;",
 	"-;",
 	"R0,Reset;",
-	"J1,Fire,Start 1P,Start 2P;",
+	"J1,Fire,Start 1P,Start 2P,Coin;",
 	"V,v",`BUILD_DATE
 };
 
@@ -238,7 +238,7 @@ wire m_fire_2  = btn_fire_2|joy[4];
 
 wire m_start1 = btn_one_player  | joy[5];
 wire m_start2 = btn_two_players | joy[6];
-wire m_coin   = m_start1 | m_start2;
+wire m_coin   = joy[7];
 
 wire hblank, vblank;
 wire ce_vid = clk_6;
